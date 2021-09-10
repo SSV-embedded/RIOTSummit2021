@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="171.91412mm"
+   height="25.938629mm"
+   viewBox="0 0 171.91413 25.938629"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1 (c4e8f9ed74, 2021-05-24)"
+   sodipodi:docname="riotboot-update-invalidize.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="true"
+     inkscape:zoom="5.0394253"
+     inkscape:cx="385.26219"
+     inkscape:cy="46.136213"
+     inkscape:window-width="2560"
+     inkscape:window-height="1412"
+     inkscape:window-x="2560"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     inkscape:snap-text-baseline="true"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     width="171.91412mm">
+    <inkscape:grid
+       type="xygrid"
+       id="grid824"
+       spacingx="0.13229167"
+       spacingy="0.13229167"
+       originx="-19.473377"
+       originy="-16.536457" />
+  </sodipodi:namedview>
+  <defs
+     id="defs2">
+    <marker
+       style="overflow:visible"
+       id="Arrow2Mend"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Mend"
+       inkscape:isstock="true">
+      <path
+         transform="scale(-0.6)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:context-stroke;fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
+         id="path55099" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow1Mend"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path55081" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow2Mend-3"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Mend"
+       inkscape:isstock="true">
+      <path
+         transform="scale(-0.6)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:context-stroke;fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
+         id="path55099-6" />
+    </marker>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath2302">
+      <path
+         id="path2304"
+         style="fill:#a5027c;stroke-width:0.499996"
+         d="M 125.01563,9.9218763 H 127 v 6.6145827 h -1.98437 c -0.7329,0 -1.32292,-0.590021 -1.32292,-1.322916 v -3.968751 c 0,-0.732895 0.59002,-1.3229157 1.32292,-1.3229157 z"
+         sodipodi:nodetypes="sccssss" />
+    </clipPath>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-19.473376,-16.536458)">
+    <rect
+       style="fill:#143d77;fill-opacity:1;stroke:none;stroke-width:0.499998"
+       id="rect848"
+       width="21.166666"
+       height="6.6145835"
+       x="30.427084"
+       y="21.166666"
+       ry="1.3229169"
+       rx="1.3229169" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:2.64583px;line-height:1;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro Semi-Bold';fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="41.560749"
+       y="25.392061"
+       id="text3096"><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:2.64583px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro Semi-Bold';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="41.560749"
+         y="25.392061"
+         id="tspan3098">Bootloader</tspan></text>
+    <rect
+       style="fill:#42a62a;fill-opacity:1;stroke-width:0.499999"
+       id="rect10944"
+       width="13.229166"
+       height="6.614583"
+       x="52.916664"
+       y="21.166666"
+       ry="1.3229166"
+       rx="1.3229166" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:2.64583px;line-height:1;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro Semi-Bold';fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="59.596889"
+       y="24.000355"
+       id="text11030"><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:2.64583px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro Semi-Bold';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="59.596889"
+         y="24.000355"
+         id="tspan11028">Slot0</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:2.64583px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro Semi-Bold';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="59.596889"
+         y="26.646185"
+         id="tspan11392">Header</tspan></text>
+    <rect
+       style="fill:#42a62a;fill-opacity:1;stroke-width:0.5"
+       id="rect12518"
+       width="47.625008"
+       height="6.614583"
+       x="67.46875"
+       y="21.166666"
+       ry="1.3229166"
+       rx="1.3229166" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:2.64583px;line-height:1;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro Semi-Bold';fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="91.219078"
+       y="24.000355"
+       id="text12524"><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:2.64583px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro Semi-Bold';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="91.219078"
+         y="24.000355"
+         id="tspan12520">Slot0</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:2.64583px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro Semi-Bold';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="91.219078"
+         y="26.646185"
+         id="tspan12522">Firmware</tspan></text>
+    <rect
+       style="fill:#a5027c;fill-opacity:1;stroke-width:0.499999"
+       id="rect13726"
+       width="13.229166"
+       height="6.614583"
+       x="116.41667"
+       y="21.166666"
+       ry="1.3229166"
+       rx="1.3229166" />
+    <rect
+       style="fill:#a5027c;fill-opacity:1;stroke-width:0.5"
+       id="rect13734"
+       width="47.625008"
+       height="6.614583"
+       x="130.96875"
+       y="21.166666"
+       ry="1.3229166"
+       rx="1.3229166" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:2.64583px;line-height:1;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro Semi-Bold';fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="154.71909"
+       y="24.000355"
+       id="text13740"><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:2.64583px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro Semi-Bold';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="154.71909"
+         y="24.000355"
+         id="tspan13736">Slot1</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:2.64583px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro Semi-Bold';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="154.71909"
+         y="26.646185"
+         id="tspan13738">Firmware</tspan></text>
+    <rect
+       style="fill:#f3971d;fill-opacity:1;stroke-width:0.499999"
+       id="rect12298"
+       width="13.229166"
+       height="6.614583"
+       x="116.41666"
+       y="33.072922"
+       ry="1.3229166"
+       rx="1.3229166" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:2.64583px;line-height:1;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro Semi-Bold';fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="123.09689"
+       y="35.906609"
+       id="text12304"><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:2.64583px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro Semi-Bold';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="123.09689"
+         y="35.906609"
+         id="tspan12300">Slot1*</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:2.64583px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro Semi-Bold';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="123.09689"
+         y="38.552437"
+         id="tspan12302">Header</tspan></text>
+    <rect
+       style="fill:#f3971d;fill-opacity:1;stroke-width:0.5"
+       id="rect12306"
+       width="47.625008"
+       height="6.614583"
+       x="130.96873"
+       y="33.072922"
+       ry="1.3229166"
+       rx="1.3229166" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:2.64583px;line-height:1;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro Semi-Bold';fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="154.71907"
+       y="35.906609"
+       id="text12312"><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:2.64583px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro Semi-Bold';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="154.71907"
+         y="35.906609"
+         id="tspan12308">Slot1*</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:2.64583px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro Semi-Bold';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="154.71907"
+         y="38.552437"
+         id="tspan12310">Firmware</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.64583px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="81.359375"
+       y="33.734375"
+       id="text23490"><tspan
+         sodipodi:role="line"
+         id="tspan23488"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:2.64583px;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro Semi-Bold';text-align:center;text-anchor:middle;stroke-width:0.264583"
+         x="81.359375"
+         y="33.734375">PC</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow2Mend-3)"
+       d="M 81.359375,31.088543 V 28.44271"
+       id="path55070" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 116.41667,33.072919 v -1.322917 h 33.07291 v -1.322916 h -0.66145 l 1.32291,-1.322917 1.32292,1.322917 h -0.66146 v 1.322916 h 27.78125 v 1.322917"
+       id="path24143" />
+    <g
+       id="g2615"
+       transform="translate(0.01028835,8.5889315)">
+      <path
+         id="rect877"
+         style="fill:#a5027c;stroke-width:0.499999"
+         d="m 117.73959,12.56771 h 1.98437 v 6.614583 h -1.98437 c -0.7329,0 -1.32292,-0.590021 -1.32292,-1.322916 v -3.968751 c 0,-0.732895 0.59002,-1.322916 1.32292,-1.322916 z"
+         sodipodi:nodetypes="sccssss" />
+      <g
+         id="g1916"
+         clip-path="url(#clipPath2302)"
+         transform="translate(-7.286328,2.6558604)"
+         style="opacity:0.8;fill:#fffeff;fill-opacity:1">
+        <path
+           id="path1588"
+           style="color:#000000;fill:#fffeff;fill-opacity:1;-inkscape-stroke:none"
+           d="m 123.15234,5.1699219 -0.24218,0.2441406 4.23242,4.2324219 0.24414,-0.2421875 z m 0,1.0585937 -0.24218,0.2421875 4.23242,4.2343749 0.24414,-0.24414 z m 0,1.0585938 -0.24218,0.2421875 4.23242,4.2343751 0.24414,-0.244141 z m 0,1.0585937 -0.24218,0.2421875 4.23242,4.2343754 0.24414,-0.244141 z m 0,8.4667969 -0.24218,0.242187 4.23242,4.234375 0.24414,-0.24414 z m 0,-1.058594 -0.24218,0.242188 4.23242,4.234375 0.24414,-0.244141 z m 0,-1.058593 -0.24218,0.242187 4.23242,4.234375 0.24414,-0.244141 z m 0,-1.058594 -0.24218,0.24414 4.23242,4.232422 0.24414,-0.24414 z m 0,-1.058594 -0.24218,0.244141 4.23242,4.232421 0.24414,-0.242187 z m 0,-3.1738281 -0.24218,0.2421875 4.23242,4.2343746 0.24414,-0.24414 z m 0,1.0566411 -0.24218,0.24414 4.23242,4.232422 0.24414,-0.242187 z m 0,1.058593 -0.24218,0.244141 4.23242,4.232422 0.24414,-0.242188 z" />
+      </g>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:2.64583px;line-height:1;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro Semi-Bold';fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="123.09689"
+       y="24.000355"
+       id="text13732"><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:2.64583px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro Semi-Bold';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="123.09689"
+         y="24.000355"
+         id="tspan13728">Slot1</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:2.64583px;font-family:'Source Sans Pro';-inkscape-font-specification:'Source Sans Pro Semi-Bold';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="123.09689"
+         y="26.646185"
+         id="tspan13730">Header</tspan></text>
+  </g>
+</svg>

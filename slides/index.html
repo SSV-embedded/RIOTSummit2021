@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>Secure Update of IoT Devices over Low Data Rate Wireless Networks</title>
+		<link rel="stylesheet" href="./node_modules/highlight.js/styles/atom-one-dark.css">
+		<link rel="stylesheet" href="./node_modules/reveal.js/dist/reveal.css">
+		<link rel="stylesheet" href="./node_modules/reveal.js/dist/theme/white.css">
+		<link rel="stylesheet" href="./node_modules/reveal.js/dist/theme/white.css">
+		<link rel="stylesheet" href="./styles/ssv.css">
+		<script defer src="./node_modules/@fortawesome/fontawesome-free/js/all.min.js"></script>
+		<script defer src="./node_modules/es-module-shims/dist/es-module-shims.js"></script>
+		<script type="importmap-shim">
+			{
+				"imports": {
+					"reveal.js": "./node_modules/reveal.js/dist/reveal.esm.js",
+					"reveal.js/": "./node_modules/reveal.js/",
+					"lit-element": "./node_modules/lit-element/lit-element.js",
+					"lit-element/": "./node_modules/lit-element/",
+					"lit-html": "./node_modules/lit-html/lit-html.js",
+					"lit-html/": "./node_modules/lit-html/"
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+
+				<section>
+					<section class="title center special">
+						<h1>Secure Update of IoT Devices<br>over Low Data Rate Wireless Networks</h1>
+						<p>Jürgen Fitschen - SSV Software Systems GmbH</p>
+					</section>
+					<section class="center">
+						<h2>What we'll cover ...</h2>
+						<p class="fragment">Why do we need updates for IoT devices?</p>
+						<p class="fragment">Requirements for <em>secure</em> updates.</p>
+						<p class="fragment">Implementations currently available to RIOT users.</p>
+						<p class="fragment">Challenges to face for devices connected using low data rate networks.</p>
+						<p class="fragment">Solutions to those challenges.</p>
+					</section>
+					<section class="center">
+						<h2>Why do we need updates for IoT devices?</h2>
+						<p class="fragment"><i class="fas fa-biohazard"></i> Fixing vulnerabilities and bugs</p>
+						<p class="fragment"><i class="fas fa-plus-circle"></i> Adding and improving features of IoT applications</p>
+						<p class="fragment"><i class="fas fa-cogs"></i> Adjust on-device configurations and AI models</p>
+					</section>
+					<section class="center">
+						<h2>Requirements for <em>Secure</em> Updates</h2>
+						<p class="fragment"><strong><i class="fas fa-atom"></i> Atomic Transactions:</strong> Immune to power and network loss mid-update</p>
+						<p class="fragment"><strong><i class="fas fa-check-circle"></i> Ensure Integrity:</strong> Immune to corruption due to<br>manipulation or transmission errors</p>
+						<p class="fragment"><strong><i class="fas fa-puzzle-piece"></i> Ensure Purpose:</strong> Update is intended for the device</p>
+						<p class="fragment"><strong><i class="fas fa-recycle"></i> Prevent Replay:</strong> Immune to downgrades to older versions</p>
+					</section>
+				</section>
+
+				<section>
+					<section class="special center">
+						<h2>Implementations Currently Available to RIOT Users</h2>
+					</section>
+					<section>
+						<h2>RIOTBOOT: The Small and Powerful Bootloader</h2>
+						<div class="r-stack">
+							<img src="assets/riotboot.svg" class="fragment current-visible" data-fragment-index="1" style="width: 100%;">
+							<img src="assets/riotboot-hdr.svg" class="fragment" data-fragment-index="2" style="width: 100%;">
+							<img src="assets/riotboot.svg" class="fragment" data-fragment-index="7" style="width: 100%;">
+						</div>
+						<div class="fragment" data-fragment-index="2"><pre><code class="c" data-trim data-noescape data-line-numbers="|2|3|4|5|" data-fragment-index="3">
+						typedef struct {
+							uint32_t magic_number; /* Always "RIOT" -> 0x544f4952 */
+							uint32_t version;      /* Slot's version number */
+							uint32_t start_addr;   /* E.g. Slot0: CPU_FLASH_BASE + RIOTBOOT_LEN + RIOTBOOT_HDR_LEN */
+							uint32_t chksum;       /* Checksum from magic_number to start_addr */
+						} riotboot_hdr_t;
+						</code></pre></div>
+						<p class="fragment" data-fragment-index="7">Bootloader algorithm:</p>
+						<div class="fragment" data-fragment-index="7"><pre><code class="c" data-trim data-noescape data-line-numbers="3,14|4|5-6|7-8|9-13|15|">
+						uint32_t highest_seen_version = 0;
+						int slot_to_boot = -1;
+						for (unsigned i = 0; i < riotboot_slot_numof; i++) {
+							const riotboot_hdr_t *header = riotboot_slot_get_hdr(i);
+							/* Check magic */
+							if (header->magic_number != 0x544f4952) continue;
+							/* Check checksum */
+							if (riotboot_hdr_checksum(header) != header->chksum) continue;
+							/* Highest seen version? */
+							if (slot_to_boot == -1 || header->version > highest_seen_version) {
+								highest_seen_version = header->version;
+								slot_to_boot = i;
+							}
+						}
+						riotboot_slot_jump(slot_to_boot);
+						</code></pre></div>
+					</section>
+					<section>
+						<h2>RIOTBOOT: The Small and Powerful Bootloader</h2>
+						<div class="r-stack">
+							<img src="assets/riotboot-update.svg" style="width: 100%;">
+							<img src="assets/riotboot-update-invalidize.svg" class="fragment" data-fragment-index="1" style="width: 100%;">
+							<img src="assets/riotboot-update-copy.svg" class="fragment" data-fragment-index="2" style="width: 100%;">
+							<img src="assets/riotboot-update-check.svg" class="fragment" data-fragment-index="3" style="width: 100%;">
+							<img src="assets/riotboot-update-finalize.svg" class="fragment" data-fragment-index="4" style="width: 100%;">
+						</div>
+						<pre><code class="c" data-trim data-noescape data-line-numbers="1-2,19|5-6|7-8|9-13|14-17|" data-fragment-index="1">
+						int install_update(int target_slot, const uint8_t *new_data, size_t new_data_len,
+						                   const uint8_t new_data_hash[SHA256_DIGEST_LENGTH]) {
+							riotboot_flashwrite_t state;
+
+							/* Prepare context and erase first page -> RIOTBOOT magic gets destroyed */
+							riotboot_flashwrite_init(&state, target_slot);
+							/* Write image to slot omitting the magic (i.e. first 4 bytes) */
+							riotboot_flashwrite_putbytes(&state, new_data + 4, new_data_len - 4, false);
+							/* Check written image against provided hash. It will take care of the omitted magic. */
+							if (riotboot_flashwrite_verify_sha256(new_data_hash, new_data_len, target_slot) != 0) {
+								/* Image is not valid! */
+								return RC_INVALID_HASH;
+							}
+							/* Enable slot by writing the magic */
+							riotboot_flashwrite_finish(&state);
+							/* Start the written image by rebooting */
+							pm_reboot();
+
+							return RC_SUCCESS;
+						}
+						</code></pre>
+					</section>
+					<section>
+						<h2>RIOTBOOT: The Small and Powerful Bootloader</h2>
+						<p class="fragment highlight-green"><strong><i class="fas fa-atom"></i> Atomic Transactions:</strong> Writing the magic is the last step<br>and enables the slot.</p>
+						<p class="fragment highlight-blue"><strong><i class="fas fa-check-circle"></i> Ensure Integrity:</strong> Checking against a cryptographic hash.<br><em>But:</em> The hash must be transferred securely!</p>
+						<p class="fragment highlight-blue"><strong><i class="fas fa-puzzle-piece"></i> Ensure Purpose:</strong> Magic ensures the image to be a RIOTBOOT image.<br><em>But:</em> The image may be compiled for another device!</p>
+						<p class="fragment highlight-green"><strong><i class="fas fa-recycle"></i> Prevent Replay:</strong> The bootloader always starts the image<br>with the highest version.</p>
+					</section>
+					<section>
+						<h2>SUIT: Software Updates for Internet of Things</h2>
+						<div class="r-stack">
+							<img src="assets/suit-1.svg">
+							<img src="assets/suit-2.svg" class="fragment">
+							<img src="assets/suit-3.svg" class="fragment">
+							<img src="assets/suit-4.svg" class="fragment">
+						</div>
+					</section>
+					<section>
+						<h2>SUIT: Software Updates for Internet of Things</h2>
+						<p class="fragment highlight-green"><strong><i class="fas fa-atom"></i> Atomic Transactions:</strong> Writing the magic is the last step<br>and enables the slot.</p>
+						<p class="fragment highlight-green"><strong><i class="fas fa-check-circle"></i> Ensure Integrity:</strong> Asymmetric keys and digital signature protect information from the developer to the IoT device.</p>
+						<p class="fragment highlight-green"><strong><i class="fas fa-puzzle-piece"></i> Ensure Purpose:</strong> The Manifest defines the image's purpose precisely.</p>
+						<p class="fragment highlight-green"><strong><i class="fas fa-recycle"></i> Prevent Replay:</strong> SUIT checks the Manifest's version field.</p>
+					</section>
+				</section>
+
+				<section>
+					<section class="special center">
+						<h2>Optimizations for Low Data Rate Wireless Networks with High Density of IoT Devices</h2>
+					</section>
+					<section>
+						<h2>Why do we <em>need</em> optimizations?</h2>
+						<p class="fragment">SUIT uses unicast CoAP. Every device downloads updates individually.</p>
+						<div class="container fragment">
+							<div class="col" style="flex-grow: 2; font-size: 0.9em;">
+								<p>
+									<strong>RF Network:</strong> IEEE802.15.4 - 868.3MHz<br>
+									Data rate $DR = 200 \frac{\text{kBit}}{\text{s}}$<br>
+									Duty cycle $DC = 1\text{%}$<br>
+									$DR_{eff} = DR \cdot DC = 2 \frac{\text{kBit}}{\text{s}}$<br>
+									Protocol overhead $OH = 25\text{%}$<br>
+								</p>
+								<p class="fragment">
+									<strong>Update:</strong><br>
+									File size $L = 128 \text{kByte} = 1 \text{MBit}$<br>
+									$L_{eff} = L \cdot (1+OH) = 1.25 \text{MBit}$
+								</p>
+								<p class="fragment">
+									<strong>Transmission of 1 update:</strong><br>
+									$t_1 = \frac{L_{eff}}{DR_{eff}} = 625 \text{s} = 10.4 \text{min}$
+								</p>
+								<p class="fragment">
+									<strong>Transmission of 24 updates:</strong><br>
+									$t_{24} = 24 \cdot t_1 = 4.17 \text{h}$
+								</p>
+							</div>
+							<img class="col" src="assets/multi-device-setup.svg">
+						</div>
+					</section>
+					<section>
+						<h2>How to optimize?</h2>
+						<div class="container">
+							<div class="col" style="flex-grow: 2;">
+								<ol>
+									<li class="fragment">Sync all devices to be awake at the same time.</li>
+									<li class="fragment">Transfer the update once using multicast.</li>
+									<li class="fragment">If a device missed a chunk:<br>Request it using unicast.</li>
+								</ol>
+								<p class="fragment"><strong>Update time can be reduced drastically!</strong></p>
+							</div>
+							<img class="col" src="assets/multi-device-setup.svg">
+						</div>
+					</section>
+					<section>
+						<h2>Introduce redundancy to reduce retransmissions</h2>
+						<div class="r-stack">
+							<img src="assets/xor-1.svg">
+							<img src="assets/xor-2.svg" class="fragment">
+							<img src="assets/xor-3.svg" class="fragment">
+						</div>
+						<p class="fragment"><strong>If only 1 of the 4 blocks is missing, it can be reconstructed!</strong></p>
+					</section>
+					<section>
+						<h2>Introduce redundancy to reduce retransmissions</h2>
+						<div class="r-stack">
+							<img src="assets/interleave-1.svg">
+							<img src="assets/interleave-2.svg" class="fragment">
+							<img src="assets/interleave-3.svg" class="fragment">
+							<img src="assets/interleave-4.svg" class="fragment">
+							<img src="assets/interleave-5.svg" class="fragment">
+							<img src="assets/interleave-6.svg" class="fragment">
+							<img src="assets/interleave-7.svg" class="fragment">
+							<img src="assets/interleave-8.svg" class="fragment">
+						</div>
+						<p class="fragment"><strong>Interleaving converts burst errors to random errors<br>and improves XOR erasure coding.</strong></p>
+					</section>
+					<section>
+						<h2>Current state of multicast updates in RIOT</h2>
+						<p class="fragment">Already in production but without SUIT integration.</p>
+						<p class="fragment">Example code will be released during the next days:<br><a href="https://github.com/ssv-embedded/RIOTSummit2021">https://github.com/ssv-embedded/RIOTSummit2021</a></p>
+					</section>
+				</section>
+
+				<section>
+					<section class="special center">
+						<h2>Optimizations for <em>Very Low</em> Data Rate<br>Wireless Networks like LoRaWAN</h2>
+					</section>
+					<section>
+						<h2>Why do we <em>need</em> optimizations?</h2>
+						<p class="fragment">
+							<strong>RF Network:</strong><br>
+							LoRa: EU863 · SF8 · 250kHz Bandwidth<br>
+							The Things Network · Fair Use  Policy: $10 \frac{\text{msg}}{\text{day}}$<br>
+							Max payload size (excl. overhead): ~$200 \frac{\text{Byte}}{\text{msg}}$<br>
+							$DR_{eff} = 10 \frac{\text{msg}}{\text{day}} \cdot 200 \frac{\text{Byte}}{\text{msg}} = 2000 \frac{\text{Byte}}{\text{day}}$
+						</p>
+						<p class="fragment">
+							<strong>Update:</strong><br>
+							Filesize $L = 128 \text{kByte}$
+						</p>
+						<p class="fragment">
+							<strong>Transmission of 1 update:</strong><br>
+							$t_1  = \frac{L}{DR_{eff}} = 64 \text{days}$
+						</p>
+					</section>
+					<section>
+						<h2>Remove redundancy!</h2>
+						<div class="fragment">
+							<p>Small modification to the <code>gnrc_lorawan</code> example:</p>
+							<pre><code class="diff" data-trim data-noescape>
+							diff --git a/examples/gnrc_lorawan/main.c b/examples/gnrc_lorawan/main.c
+							index 0308de4bda..9d5bf3af46 100644
+							--- a/examples/gnrc_lorawan/main.c
+							+++ b/examples/gnrc_lorawan/main.c
+							@@ -38,7 +38,7 @@
+							int main(void)
+							{
+								/* start the shell */
+							-	puts("Initialization successful - starting the shell now");
+							+	puts("Initialization successful - connecting to the net!");
+							</code></pre>
+						</div>
+					</section>
+					<section>
+						<h2>Remove redundancy!</h2>
+						<p>Leads to a binary with the same size and small modifications inside the binary:</p>
+						<table>
+							<thead>
+								<tr>
+									<th>File</th>
+									<th>Size</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>gnrc_lorawan_a.bin</td>
+									<td>55344B</td>
+								</tr>
+								<tr>
+									<td>gnrc_lorawan_b.bin</td>
+									<td>55344B</td>
+								</tr>
+							</tbody>
+						</table>
+						<pre><code class="diff" data-trim data-noescape>
+						--- gnrc_lorawan_a.asm
+						+++ gnrc_lorawan_b.asm
+						@@ -21404,12 +21404,12 @@
+								ada8:	75 63 63 65	.word	0x65636375
+								adac:	73 73 66 75	.word	0x75667373
+								adb0:	6c 20 2d 20	.word	0x202d206c
+						-		adb4:	73 74 61 72	.word	0x72617473
+						-		adb8:	74 69 6e 67	.word	0x676e6974
+						-		adbc:	20 74 68 65	.word	0x65687420
+						-		adc0:	20 73 68 65	.word	0x65687320
+						-		adc4:	6c 6c 20 6e	.word	0x6e206c6c
+						-		adc8:	6f 77		.short	0x776f
+						+		adb4:	63 6f 6e 6e	.word	0x6e6e6f63
+						+		adb8:	65 63 74 69	.word	0x69746365
+						+		adbc:	6e 67 20 74	.word	0x7420676e
+						+		adc0:	6f 20 74 68	.word	0x6874206f
+						+		adc4:	65 20 6e 65	.word	0x656e2065
+						+		adc8:	74 21		.short	0x2174
+								adca:	00		.byte	0x00
+						</code></pre>
+					</section>
+					<section>
+						<h2>The VCDIFF standard creates binary diffs</h2>
+						<pre><code class="shell" data-trim data-noescape data-line-numbers="1|2-6|7-11|12-14|">
+						$ vcdiff encode -interleaved -dictionary gnrc_lorawan_a.bin -target gnrc_lorawan_b.bin &gt;a-b.vcdiff
+						$ ls -l
+						total 140
+						-rw-r--r-- 1 jue jue    53  8. Sep 15:14 a-b.vcdiff
+						-rw-r--r-- 1 jue jue 55344  8. Sep 15:13 gnrc_lorawan_a.bin
+						-rw-r--r-- 1 jue jue 55344  8. Sep 15:13 gnrc_lorawan_b.bin
+						$ vcdiff-decode -i gnrc_lorawan_a.bin &lt;a-b.vcdiff &gt;gnrc_lorawan_b-reconstructed.bin
+						WIN VCD_SOURCE [0x0+55344] => [0x0+55344]
+						  COPY from SEGMENT [0x0+44468] => [0x0+44468]
+						  ADD => [0xadb4+22]
+						  COPY from SEGMENT [0xadca+10854] => [0xadca+10854]
+						$ md5sum gnrc_lorawan_b*
+						7ae6a0dcacbc616ed19ad74430333eef  gnrc_lorawan_b-reconstructed.bin
+						7ae6a0dcacbc616ed19ad74430333eef  gnrc_lorawan_b.bin
+						</code></pre>
+						<p class="fragment">
+							Encoding: <a href="https://github.com/google/open-vcdiff">google/open-vcdiff</a><br>
+							Decoding: <a href="https://github.com/jue89/tiny-vcdiff">jue89/tiny-vcdiff</a>
+						</p>
+					</section>
+					<section>
+						<h2>The VCDIFF standard creates binary diffs</h2>
+						<p>More use cases:</p>
+						<table>
+							<thead>
+								<tr>
+									<th>Use Case</th>
+									<th>Old Bin Size</th>
+									<th>New Bin Size</th>
+									<th>Diff Size</th>
+									<th>Compression</th>
+									<th>Download Time</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Changing constant value</td>
+									<td style="text-align: right;">55344B</td>
+									<td style="text-align: right;">55344B</td>
+									<td style="text-align: right;">53B</td>
+									<td style="text-align: right;">99.9%</td>
+									<td style="text-align: right;">&lt; 1hour</td>
+								</tr>
+								<tr class="fragment">
+									<td>Changing small code section</td>
+									<td style="text-align: right;">55344B</td>
+									<td style="text-align: right;">55316B</td>
+									<td style="text-align: right;">2810B</td>
+									<td style="text-align: right;">94.9%</td>
+									<td style="text-align: right;">1.4 days</td>
+								</tr>
+								<tr class="fragment">
+									<td>Update from 2021.04 to 2021.07</td>
+									<td style="text-align: right;">56056B</td>
+									<td style="text-align: right;">55344B</td>
+									<td style="text-align: right;">17374B</td>
+									<td style="text-align: right;">68.6%</td>
+									<td style="text-align: right;">8.7 days</td>
+								</tr>
+							</tbody>
+						</table>
+						<p class="fragment">Still not fast, but OTA updates become achievable!</p>
+					</section>
+					<section>
+						<h2>Current state of binary diff-based updates</h2>
+						<p class="fragment">SSV is utilizing VCDIFF in non-RIOT environments:<br>Updates of Linux filesystem images at compression ratios better than 99.5%.</p>
+						<p class="fragment">The decoder implementation is compatible with the RIOT/pkg. A PR bringing the decoder to the RIOT is already prepared. Stay tuned!</p>
+						<p class="fragment">A novel approach with a lot to be discovered!</p>
+					</section>
+
+					<section>
+						<h2>Your Takeaways</h2>
+						<p class="fragment">RIOTBOOT is a great foundation for implementing OTA updates.</p>
+						<p class="fragment">SUIT might be a good fit if network bandwidth is plentiful.</p>
+						<p class="fragment">Multicast updates reduce OTA update duration in high-density environments.</p>
+						<p class="fragment">VCDIFF can be the door-opener for OTA updates over LoRaWAN.</p>
+					</section>
+				</section>
+			</div>
+		</div>
+		<script type="module-shim">
+			import Reveal from 'reveal.js';
+			import Highlight from 'reveal.js/plugin/highlight/highlight.esm.js';
+			import RevealMath from 'reveal.js/plugin/math/math.esm.js';
+			let deck = new Reveal({
+				controls: false,
+				progress: false,
+				slideNumber: true,
+				hash: true,
+				center: false,
+				transition: 'none',
+				backgroundTransition: 'none',
+				plugins: [Highlight, RevealMath],
+				pdfSeparateFragments: false
+			});
+			deck.initialize({
+				math: {
+					mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+					config: 'TeX-AMS_HTML-full',
+					showMathMenu: false,
+					styles: {
+						".MathJax": {"font-size": "80% !important"}
+					}
+				}
+			});
+		</script>
+	</body>
+</html>
