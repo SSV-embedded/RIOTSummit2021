@@ -60,7 +60,7 @@
 						<h2>Implementations Currently Available to RIOT Users</h2>
 					</section>
 					<section>
-						<h2>RIOTBOOT: The Small and Powerful Bootloader</h2>
+						<h2>RIOTBOOT<sup>[<a href="#/references">1</a>]</sup>: The Small and Powerful Bootloader</h2>
 						<div class="r-stack">
 							<img src="assets/riotboot.svg" class="fragment current-visible" data-fragment-index="1" style="width: 100%;">
 							<img src="assets/riotboot-hdr.svg" class="fragment" data-fragment-index="2" style="width: 100%;">
@@ -94,7 +94,7 @@
 						</code></pre></div>
 					</section>
 					<section>
-						<h2>RIOTBOOT: The Small and Powerful Bootloader</h2>
+						<h2>RIOTBOOT<sup>[<a href="#/references">1</a>]</sup>: The Small and Powerful Bootloader</h2>
 						<div class="r-stack">
 							<img src="assets/riotboot-update.svg" style="width: 100%;">
 							<img src="assets/riotboot-update-invalidize.svg" class="fragment" data-fragment-index="1" style="width: 100%;">
@@ -126,14 +126,14 @@
 						</code></pre>
 					</section>
 					<section>
-						<h2>RIOTBOOT: The Small and Powerful Bootloader</h2>
+						<h2>RIOTBOOT<sup>[<a href="#/references">1</a>]</sup>: The Small and Powerful Bootloader</h2>
 						<p class="fragment highlight-green"><strong><i class="fas fa-atom"></i> Atomic Transactions:</strong> Writing the magic is the last step<br>and enables the slot.</p>
 						<p class="fragment highlight-blue"><strong><i class="fas fa-check-circle"></i> Ensure Integrity:</strong> Checking against a cryptographic hash.<br><em>But:</em> The hash must be transferred securely!</p>
 						<p class="fragment highlight-blue"><strong><i class="fas fa-puzzle-piece"></i> Ensure Purpose:</strong> Magic ensures the image to be a RIOTBOOT image.<br><em>But:</em> The image may be compiled for another device!</p>
 						<p class="fragment highlight-green"><strong><i class="fas fa-recycle"></i> Prevent Replay:</strong> The bootloader always starts the image<br>with the highest version.</p>
 					</section>
 					<section>
-						<h2>SUIT: Software Updates for Internet of Things</h2>
+						<h2>SUIT<sup>[<a href="#/references">2</a>,<a href="#/references">3</a>]</sup>: Software Updates for Internet of Things</h2>
 						<div class="r-stack">
 							<img src="assets/suit-1.svg">
 							<img src="assets/suit-2.svg" class="fragment">
@@ -142,7 +142,7 @@
 						</div>
 					</section>
 					<section>
-						<h2>SUIT: Software Updates for Internet of Things</h2>
+						<h2>SUIT<sup>[<a href="#/references">2</a>,<a href="#/references">3</a>]: Software Updates for Internet of Things</h2>
 						<p class="fragment highlight-green"><strong><i class="fas fa-atom"></i> Atomic Transactions:</strong> Writing the magic is the last step<br>and enables the slot.</p>
 						<p class="fragment highlight-green"><strong><i class="fas fa-check-circle"></i> Ensure Integrity:</strong> Asymmetric keys and digital signature protect information from the developer to the IoT device.</p>
 						<p class="fragment highlight-green"><strong><i class="fas fa-puzzle-piece"></i> Ensure Purpose:</strong> The Manifest defines the image's purpose precisely.</p>
@@ -161,8 +161,8 @@
 							<div class="col" style="flex-grow: 2; font-size: 0.9em;">
 								<p>
 									<strong>RF Network:</strong> IEEE802.15.4 - 868.3MHz<br>
-									Data rate $DR = 200 \frac{\text{kBit}}{\text{s}}$<br>
-									Duty cycle $DC = 1\text{%}$<br>
+									Data rate<sup>[<a href="#/references">4</a>]</sup> $DR = 200 \frac{\text{kBit}}{\text{s}}$<br>
+									Duty cycle<sup>[<a href="#/references">5</a>]</sup> $DC = 1\text{%}$<br>
 									$DR_{eff} = DR \cdot DC = 2 \frac{\text{kBit}}{\text{s}}$<br>
 									Protocol overhead $OH = 25\text{%}$<br>
 								</p>
@@ -236,7 +236,7 @@
 						<p class="fragment">
 							<strong>RF Network:</strong><br>
 							LoRa: EU863 · SF8 · 250kHz Bandwidth<br>
-							The Things Network · Fair Use  Policy: $10 \frac{\text{msg}}{\text{day}}$<br>
+							The Things Network · Fair Use Policy<sup>[<a href="#/references">6</a>]</sup>: $10 \frac{\text{msg}}{\text{day}}$<br>
 							Max payload size (excl. overhead): ~$200 \frac{\text{Byte}}{\text{msg}}$<br>
 							$DR_{eff} = 10 \frac{\text{msg}}{\text{day}} \cdot 200 \frac{\text{Byte}}{\text{msg}} = 2000 \frac{\text{Byte}}{\text{day}}$
 						</p>
@@ -311,7 +311,7 @@
 						</code></pre>
 					</section>
 					<section>
-						<h2>The VCDIFF standard creates binary diffs</h2>
+						<h2>The VCDIFF standard<sup>[<a href="#/references">7</a>]</sup> creates binary diffs</h2>
 						<pre><code class="shell" data-trim data-noescape data-line-numbers="1|2-6|7-11|12-14|">
 						$ vcdiff encode -interleaved -dictionary gnrc_lorawan_a.bin -target gnrc_lorawan_b.bin &gt;a-b.vcdiff
 						$ ls -l
@@ -334,7 +334,7 @@
 						</p>
 					</section>
 					<section>
-						<h2>The VCDIFF standard creates binary diffs</h2>
+						<h2>The VCDIFF standard<sup>[<a href="#/references">7</a>]</sup> creates binary diffs</h2>
 						<p>More use cases:</p>
 						<table>
 							<thead>
@@ -389,6 +389,18 @@
 						<p class="fragment">SUIT might be a good fit if network bandwidth is plentiful.</p>
 						<p class="fragment">Multicast updates reduce OTA update duration in high-density environments.</p>
 						<p class="fragment">VCDIFF can be the door-opener for OTA updates over LoRaWAN.</p>
+					</section>
+					<section id="references">
+						<h2>References</h2>
+						<ol>
+							<li><a href="http://api.riot-os.org/group__bootloader__riotboot.html">RIOTBOOT Documentation</a></li>
+							<li><a href="https://datatracker.ietf.org/wg/suit/documents/">SUIT: IETF Working Group Documents</a></li>
+							<li><a href="http://api.riot-os.org/group__sys__suit.html">SUIT: RIOT Impementation</a></li>
+							<li><a href="https://standards.ieee.org/standard/802_15_4-2020.html">IEEE 802.15.4-2020 Standard</a></li>
+							<li><a href="https://www.etsi.org/deliver/etsi_en/300200_300299/30022002/03.02.01_60/en_30022002v030201p.pdf">ETSI EN 300 220-2 V3.2.1 (2018-06): Short Range Devices (SRD) operating in the frequency range 25 MHz to 1 000 MHz; Part 2: Harmonised Standard for access to radio spectrum for non specific radio equipment</a></li>
+							<li><a href="https://www.thethingsnetwork.org/docs/lorawan/duty-cycle/#fair-use-policy">The Things Network: Duty Cycle</a></li>
+							<li><a href="https://datatracker.ietf.org/doc/html/rfc3284">VCDIFF: RFC3294</a></li>
+						</ol>
 					</section>
 				</section>
 			</div>
